@@ -1,128 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Calculator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .calculator {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            padding: 20px;
-        }
-        .display {
-            background-color: #f0f0f0;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.5em;
-            text-align: right;
-            padding: 10px;
-            margin-bottom: 20px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            padding: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .operator {
-            background-color: #ff9500;
-        }
-        .operator:hover {
-            background-color: #cc7600;
-        }
-    </style>
-</head>
-<body>
-    <div class="calculator">
-        <input type="text" id="display" class="display" disabled />
-        <div class="buttons">
-            <button onclick="appendValue('7')">7</button>
-            <button onclick="appendValue('8')">8</button>
-            <button onclick="appendValue('9')">9</button>
-            <button class="operator" onclick="appendValue('/')">/</button>
-
-            <button onclick="appendValue('4')">4</button>
-            <button onclick="appendValue('5')">5</button>
-            <button onclick="appendValue('6')">6</button>
-            <button class="operator" onclick="appendValue('*')">*</button>
-
-            <button onclick="appendValue('1')">1</button>
-            <button onclick="appendValue('2')">2</button>
-            <button onclick="appendValue('3')">3</button>
-            <button class="operator" onclick="appendValue('-')">-</button>
-
-            <button onclick="appendValue('0')">0</button>
-            <button onclick="appendValue('.')">.</button>
-            <button onclick="clearDisplay()">C</button>
-            <button class="operator" onclick="appendValue('+')">+</button>
-
-            <button style="grid-column: span 4;" onclick="calculateResult()">=</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/4c536a6bd5.js" crossorigin="anonymous"></script>
+    <title>Calculator</title>
+  </head>
+  <body>
+    <main class="main">
+      <div class="calculator">
+        <div class="screen">
+          <div class="screen-last" id="lastOperationScreen"></div>
+          <div class="screen-current" id="currentOperationScreen">0</div>
         </div>
-    </div>
+        <div class="buttons-grid">
+          <button class="btn btn-red span-2" id="clearBtn" onclick="this.blur();">CLEAR</button>
+          <button class="btn btn-blue span-2" id="deleteBtn" onclick="this.blur();">DELETE</button>
+          
+          <button class="btn" onclick="this.blur();" data-number>7</button>
+          <button class="btn" onclick="this.blur();" data-number>8</button>
+          <button class="btn" onclick="this.blur();" data-number>9</button>
+          <button class="btn" onclick="this.blur();" data-operator>÷</button>
 
-    <script>
-        const display = document.getElementById('display');
+          <button class="btn" onclick="this.blur();" data-number>4</button>
+          <button class="btn" onclick="this.blur();" data-number>5</button>
+          <button class="btn" onclick="this.blur();" data-number>6</button>
+          <button class="btn" onclick="this.blur();" data-operator>×</button>
 
-        function appendValue(value) {
-            display.value += value;
-        }
+          <button class="btn" onclick="this.blur();" data-number>1</button>
+          <button class="btn" onclick="this.blur();" data-number>2</button>
+          <button class="btn" onclick="this.blur();" data-number>3</button>
+          <button class="btn" onclick="this.blur();" data-operator>−</button>
 
-        function clearDisplay() {
-            display.value = '';
-        }
-
-        function calculateResult() {
-            try {
-                const result = eval(display.value);
-                if (!isFinite(result)) {
-                    throw new Error("Math error");
-                }
-                display.value = result;
-            } catch (error) {
-                display.value = "Error";
-                setTimeout(clearDisplay, 1500); // Clear after showing error
-            }
-        }
-
-        // Handle keyboard input
-        document.addEventListener('keydown', (event) => {
-            const validKeys = '0123456789.+-*/';
-            if (validKeys.includes(event.key)) {
-                appendValue(event.key);
-            } else if (event.key === 'Enter') {
-                calculateResult();
-            } else if (event.key === 'Backspace') {
-                display.value = display.value.slice(0, -1);
-            } else if (event.key === 'Escape') {
-                clearDisplay();
-            }
-        });
-    </script>
-</body>
+          <button class="btn" onclick="this.blur();" id="pointBtn">.</button>
+          <button class="btn" onclick="this.blur();" data-number>0</button>
+          <button class="btn" onclick="this.blur();" id="equalsBtn">=</button>
+          <button class="btn" onclick="this.blur();" data-operator>+</button>
+        </div>
+      </div>
+    </main>
+    <script src="script.js" defer></script>
+  </body>
 </html>
